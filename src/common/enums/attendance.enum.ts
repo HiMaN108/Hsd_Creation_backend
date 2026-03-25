@@ -1,0 +1,16 @@
+export const ATTENDANCE_STATUS = {
+  ABSENT: 0,
+  PRESENT: 1,
+  HALF_DAY: 2,
+  LATE: 3,
+  HOLIDAY: 4,
+  LEAVE: 5,
+} as const;
+
+export const OFFICE_TIMINGS = {
+  PUNCH_IN_ON_TIME: '10:30',
+  PUNCH_IN_LATE_LIMIT: '13:00',
+  HALF_DAY_THRESHOLD: '13:00',
+  MIN_WORKING_HOURS: 4,
+  FULL_WORKING_HOURS: 8,
+} as const;
