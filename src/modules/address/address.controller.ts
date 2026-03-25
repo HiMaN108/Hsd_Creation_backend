@@ -6,7 +6,7 @@ import {
   Delete,
   Body,
   Param,
-  ParseIntPipe,
+  ParseUUIDPipe,
   UseGuards,
   Req,
 } from '@nestjs/common';
@@ -36,7 +36,7 @@ export class AddressController {
   @ApiOperation({ summary: 'Get a specific address' })
   findOne(
     @Req() req: any,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
   ) {
     return this.addressService.findOne(req.user.id, id);
   }
@@ -51,7 +51,7 @@ export class AddressController {
   @ApiOperation({ summary: 'Update an address' })
   update(
     @Req() req: any,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateAddressDto,
   ) {
     return this.addressService.update(req.user.id, id, dto);
@@ -61,7 +61,7 @@ export class AddressController {
   @ApiOperation({ summary: 'Delete an address' })
   remove(
     @Req() req: any,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
   ) {
     return this.addressService.remove(req.user.id, id);
   }

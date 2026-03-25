@@ -23,7 +23,7 @@ export class OrderService {
     private readonly cartService: CartService,
   ) {}
 
-  async placeOrder(userId: number, dto: CreateOrderDto) {
+  async placeOrder(userId: string, dto: CreateOrderDto) {
     const cart = await this.cartService.getCart(userId);
 
     if (!cart.items || cart.items.length === 0) {
@@ -99,7 +99,7 @@ export class OrderService {
     return this.findOne(userId, savedOrder.id);
   }
 
-  async findAllByUser(userId: number, page = 1, limit = 10) {
+  async findAllByUser(userId: string, page = 1, limit = 10) {
     const [orders, total] = await this.orderRepository.findAndCount({
       where: { user_id: userId },
       relations: ['items'],
@@ -119,7 +119,7 @@ export class OrderService {
     };
   }
 
-  async findOne(userId: number, orderId: number) {
+  async findOne(userId: string, orderId: string) {
     const order = await this.orderRepository.findOne({
       where: { id: orderId, user_id: userId },
       relations: ['items'],
@@ -152,7 +152,7 @@ export class OrderService {
     };
   }
 
-  async updateStatus(orderId: number, dto: UpdateOrderStatusDto) {
+  async updateStatus(orderId: string, dto: UpdateOrderStatusDto) {
     const order = await this.orderRepository.findOne({
       where: { id: orderId },
       relations: ['items'],

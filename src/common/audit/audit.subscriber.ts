@@ -21,10 +21,9 @@ function safeClone<T>(value: T): T {
   }
 }
 
-function toNullableNumber(value: unknown): number | null {
+function toNullableString(value: unknown): string | null {
   if (value === null || value === undefined) return null;
-  const n = Number(value);
-  return Number.isFinite(n) ? n : null;
+  return String(value);
 }
 
 @EventSubscriber()
@@ -157,8 +156,8 @@ export class AuditSubscriber implements EntitySubscriberInterface {
     queue: Array<{
       action: string;
       tableName: string;
-      entityId?: number | null;
-      userId?: number | null;
+      entityId?: string | null;
+      userId?: string | null;
       beforeData?: any;
       afterData?: any;
     }>,
@@ -172,10 +171,10 @@ export class AuditSubscriber implements EntitySubscriberInterface {
       const repo = qr.manager.getRepository(AuditLog);
 
       const rows: QueryDeepPartialEntity<AuditLog>[] = queue.map((q) => ({
-        userId: toNullableNumber(q.userId),
+        userId: toNullableString(q.userId),
         action: q.action,
         tableName: q.tableName,
-        entityId: toNullableNumber(q.entityId),
+        entityId: toNullableString(q.entityId),
         beforeData: (q.beforeData as unknown) ?? null,
         afterData: (q.afterData as unknown) ?? null,
         requestId: ctx.requestId ?? null,

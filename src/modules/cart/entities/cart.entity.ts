@@ -11,14 +11,13 @@ import {
 import { User } from '../../auth/entities/user.entity';
 import { CartItem } from './cart-item.entity';
 
-
 @Entity('carts')
 export class Cart {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column({ unique: true })
-  user_id: number;
+  @Column({ type: 'uuid', unique: true })
+  user_id: string;
 
   @CreateDateColumn()
   created_at: Date;

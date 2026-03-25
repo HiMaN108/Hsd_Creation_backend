@@ -6,7 +6,7 @@ import {
   Delete,
   Body,
   Param,
-  ParseIntPipe,
+  ParseUUIDPipe,
   UseGuards,
   Req,
 } from '@nestjs/common';
@@ -42,7 +42,7 @@ export class CartController {
   @ApiOperation({ summary: 'Update cart item quantity' })
   updateItem(
     @Req() req: any,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateCartItemDto,
   ) {
     return this.cartService.updateItem(req.user.id, id, dto);
@@ -52,7 +52,7 @@ export class CartController {
   @ApiOperation({ summary: 'Remove an item from cart' })
   removeItem(
     @Req() req: any,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
   ) {
     return this.cartService.removeItem(req.user.id, id);
   }

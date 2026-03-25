@@ -61,7 +61,7 @@ async function bootstrap() {
    * Swagger setup
    */
   const config = new DocumentBuilder()
-    .setTitle('Employee Management API')
+    .setTitle('E-Commerce HSD Creation API')
     .setDescription('API description')
     .setVersion('1.0')
     .addBearerAuth(

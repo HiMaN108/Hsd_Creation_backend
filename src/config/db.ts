@@ -11,7 +11,7 @@ export const typeOrmConfig = (config: ConfigService): TypeOrmModuleOptions => {
     password: config.get<string>('DB_PASSWORD'),
     database: config.get<string>('DB_DATABASE'),
     entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-    synchronize: false,
+    synchronize: true, // TEMP: recreating tables with correct column order
     logging: true, // Turn this on temporarily to see what's happening
 
     // --- New Settings ---

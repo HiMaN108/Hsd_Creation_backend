@@ -11,11 +11,11 @@ import { User } from '../../auth/entities/user.entity';
 
 @Entity('addresses')
 export class Address {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column()
-  user_id: number;
+  @Column({ type: 'uuid' })
+  user_id: string;
 
   @Column({ length: 50, default: 'Home' })
   label: string;

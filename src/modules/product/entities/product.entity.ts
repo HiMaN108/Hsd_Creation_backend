@@ -9,14 +9,13 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Category } from './category.entity';
-import { OrderItem } from 'src/modules/order/entities/order-item.entity';
-import { CartItem } from 'src/modules/cart/entities/cart-item.entity';
-
+import { OrderItem } from '../../order/entities/order-item.entity';
+import { CartItem } from '../../cart/entities/cart-item.entity';
 
 @Entity('products')
 export class Product {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ length: 200 })
   name: string;
@@ -45,8 +44,8 @@ export class Product {
   @Column({ default: true })
   is_active: boolean;
 
-  @Column()
-  category_id: number;
+  @Column({ type: 'uuid' })
+  category_id: string;
 
   @CreateDateColumn()
   created_at: Date;

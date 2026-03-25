@@ -19,8 +19,8 @@ export class AuditLog {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column({ name: 'user_id', type: 'bigint', nullable: true })
-  userId!: number | null;
+  @Column({ name: 'user_id', type: 'uuid', nullable: true })
+  userId!: string | null;
 
   @Column({ type: 'varchar', length: 100 })
   action!: string;
@@ -28,8 +28,8 @@ export class AuditLog {
   @Column({ name: 'table_name', type: 'varchar', length: 100 })
   tableName!: string;
 
-  @Column({ name: 'entity_id', type: 'bigint', nullable: true })
-  entityId!: number | null;
+  @Column({ name: 'entity_id', type: 'uuid', nullable: true })
+  entityId!: string | null;
 
   @Column({ name: 'before_data', type: 'json', nullable: true })
   beforeData!: Record<string, any> | null;

@@ -18,7 +18,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     if (result && typeof result === 'object' && 'id' in result) {
       const ctx = requestContext.getStore();
       if (ctx) {
-        ctx.userId = Number((result as { id: unknown }).id);
+        ctx.userId = String((result as { id: unknown }).id);
       }
     }
 

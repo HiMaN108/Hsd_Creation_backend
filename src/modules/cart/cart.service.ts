@@ -21,7 +21,7 @@ export class CartService {
     private readonly productRepository: Repository<Product>,
   ) {}
 
-  async getOrCreateCart(userId: number): Promise<Cart> {
+  async getOrCreateCart(userId: string): Promise<Cart> {
     let cart = await this.cartRepository.findOne({
       where: { user_id: userId },
       relations: ['items', 'items.product'],
@@ -36,7 +36,7 @@ export class CartService {
     return cart;
   }
 
-  async getCart(userId: number) {
+  async getCart(userId: string) {
     const cart = await this.getOrCreateCart(userId);
 
     const total = cart.items.reduce((sum, item) => {
@@ -51,7 +51,7 @@ export class CartService {
     };
   }
 
-  async addItem(userId: number, dto: AddToCartDto) {
+  async addItem(userId: string, dto: AddToCartDto) {
     const product = await this.productRepository.findOne({
       where: { id: dto.product_id, is_active: true },
     });
@@ -92,7 +92,7 @@ export class CartService {
     return this.getCart(userId);
   }
 
-  async updateItem(userId: number, itemId: number, dto: UpdateCartItemDto) {
+  async updateItem(userId: string, itemId: string, dto: UpdateCartItemDto) {
     const cart = await this.getOrCreateCart(userId);
 
     const cartItem = await this.cartItemRepository.findOne({
@@ -115,7 +115,7 @@ export class CartService {
     return this.getCart(userId);
   }
 
-  async removeItem(userId: number, itemId: number) {
+  async removeItem(userId: string, itemId: string) {
     const cart = await this.getOrCreateCart(userId);
 
     const cartItem = await this.cartItemRepository.findOne({
@@ -130,7 +130,7 @@ export class CartService {
     return this.getCart(userId);
   }
 
-  async clearCart(userId: number) {
+  async clearCart(userId: string) {
     const cart = await this.getOrCreateCart(userId);
     await this.cartItemRepository.delete({ cart_id: cart.id });
     return { message: 'Cart cleared successfully' };

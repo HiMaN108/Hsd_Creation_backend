@@ -6,7 +6,7 @@ import {
   Body,
   Param,
   Query,
-  ParseIntPipe,
+  ParseUUIDPipe,
   UseGuards,
   Req,
 } from '@nestjs/common';
@@ -56,7 +56,7 @@ export class OrderController {
   @ApiOperation({ summary: 'Get a specific order by ID' })
   findOne(
     @Req() req: any,
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
   ) {
     return this.orderService.findOne(req.user.id, id);
   }
@@ -66,7 +66,7 @@ export class OrderController {
   @Roles(Role.ADMIN)
   @ApiOperation({ summary: 'Update order status (admin only)' })
   updateStatus(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateOrderStatusDto,
   ) {
     return this.orderService.updateStatus(id, dto);

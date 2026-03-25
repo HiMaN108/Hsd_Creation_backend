@@ -4,6 +4,7 @@ import {
   IsOptional,
   IsNumber,
   IsBoolean,
+  IsUUID,
   Min,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
@@ -56,11 +57,10 @@ export class CreateProductDto {
   @IsString()
   image_url?: string;
 
-  @ApiProperty({ example: 1 })
+  @ApiProperty({ example: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890' })
   @IsNotEmpty()
-  @Type(() => Number)
-  @IsNumber()
-  category_id: number;
+  @IsUUID()
+  category_id: string;
 }
 
 export class UpdateProductDto {
@@ -110,11 +110,10 @@ export class UpdateProductDto {
   @IsString()
   image_url?: string;
 
-  @ApiPropertyOptional({ example: 1 })
+  @ApiPropertyOptional({ example: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890' })
   @IsOptional()
-  @Type(() => Number)
-  @IsNumber()
-  category_id?: number;
+  @IsUUID()
+  category_id?: string;
 
   @ApiPropertyOptional({ example: true })
   @IsOptional()

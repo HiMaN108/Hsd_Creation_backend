@@ -23,7 +23,7 @@ export class CategoryService {
     });
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const category = await this.categoryRepository.findOne({
       where: { id },
       relations: ['products'],
@@ -36,13 +36,13 @@ export class CategoryService {
     return category;
   }
 
-  async update(id: number, dto: UpdateCategoryDto) {
+  async update(id: string, dto: UpdateCategoryDto) {
     const category = await this.findOne(id);
     Object.assign(category, dto);
     return this.categoryRepository.save(category);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const category = await this.findOne(id);
     await this.categoryRepository.remove(category);
     return { message: `Category #${id} deleted successfully` };

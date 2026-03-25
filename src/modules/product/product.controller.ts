@@ -7,7 +7,7 @@ import {
   Body,
   Param,
   Query,
-  ParseIntPipe,
+  ParseUUIDPipe,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -32,25 +32,25 @@ export class ProductController {
   @ApiOperation({ summary: 'Get all products (public, paginated)' })
   @ApiQuery({ name: 'page', required: false, type: Number, example: 1 })
   @ApiQuery({ name: 'limit', required: false, type: Number, example: 10 })
-  @ApiQuery({ name: 'category_id', required: false, type: Number })
+  @ApiQuery({ name: 'category_id', required: false, type: String })
   @ApiQuery({ name: 'search', required: false, type: String })
   findAll(
     @Query('page') page?: number,
     @Query('limit') limit?: number,
-    @Query('category_id') categoryId?: number,
+    @Query('category_id') categoryId?: string,
     @Query('search') search?: string,
   ) {
     return this.productService.findAll(
       page ? +page : 1,
       limit ? +limit : 10,
-      categoryId ? +categoryId : undefined,
+      categoryId,
       search,
     );
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get a product by ID (public)' })
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.productService.findOne(id);
   }
 
@@ -69,7 +69,7 @@ export class ProductController {
   @ApiBearerAuth('bearerAuth')
   @ApiOperation({ summary: 'Update a product (admin only)' })
   update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateProductDto,
   ) {
     return this.productService.update(id, dto);
@@ -80,7 +80,7 @@ export class ProductController {
   @Roles(Role.ADMIN)
   @ApiBearerAuth('bearerAuth')
   @ApiOperation({ summary: 'Delete a product (admin only)' })
-  remove(@Param('id', ParseIntPipe) id: number) {
+  remove(@Param('id', ParseUUIDPipe) id: string) {
     return this.productService.remove(id);
   }
 }

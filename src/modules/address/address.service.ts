@@ -11,7 +11,7 @@ export class AddressService {
     private readonly addressRepository: Repository<Address>,
   ) {}
 
-  async create(userId: number, dto: CreateAddressDto) {
+  async create(userId: string, dto: CreateAddressDto) {
     // If this is the first address or is_default is true, reset other defaults
     if (dto.is_default) {
       await this.addressRepository.update(
@@ -28,14 +28,14 @@ export class AddressService {
     return this.addressRepository.save(address);
   }
 
-  async findAll(userId: number) {
+  async findAll(userId: string) {
     return this.addressRepository.find({
       where: { user_id: userId },
       order: { is_default: 'DESC', created_at: 'DESC' },
     });
   }
 
-  async findOne(userId: number, id: number) {
+  async findOne(userId: string, id: string) {
     const address = await this.addressRepository.findOne({
       where: { id, user_id: userId },
     });
@@ -47,7 +47,7 @@ export class AddressService {
     return address;
   }
 
-  async update(userId: number, id: number, dto: UpdateAddressDto) {
+  async update(userId: string, id: string, dto: UpdateAddressDto) {
     const address = await this.findOne(userId, id);
 
     if (dto.is_default) {
@@ -61,7 +61,7 @@ export class AddressService {
     return this.addressRepository.save(address);
   }
 
-  async remove(userId: number, id: number) {
+  async remove(userId: string, id: string) {
     const address = await this.findOne(userId, id);
     await this.addressRepository.remove(address);
     return { message: `Address #${id} deleted successfully` };

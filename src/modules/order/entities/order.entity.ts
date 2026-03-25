@@ -9,18 +9,17 @@ import {
   JoinColumn,
 } from 'typeorm';
 import { User } from '../../auth/entities/user.entity';
-
+import { OrderItem } from './order-item.entity';
 import { OrderStatus } from '../../../common/enums/order-status.enum';
 import { PaymentStatus } from '../../../common/enums/payment-status.enum';
-import { OrderItem } from './order-item.entity';
 
 @Entity('orders')
 export class Order {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column()
-  user_id: number;
+  @Column({ type: 'uuid' })
+  user_id: string;
 
   @Column({ unique: true, length: 50 })
   order_number: string;

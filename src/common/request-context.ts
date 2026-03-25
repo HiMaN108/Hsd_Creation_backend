@@ -2,7 +2,7 @@ import { AsyncLocalStorage } from 'node:async_hooks';
 
 export type RequestContextStore = {
   requestId?: string;
-  userId?: number;
+  userId?: string;
   ip?: string;
   userAgent?: string;
 
@@ -10,8 +10,8 @@ export type RequestContextStore = {
   auditQueue?: Array<{
     action: string;
     tableName: string;
-    entityId?: number | null;
-    userId?: number;
+    entityId?: string | null;
+    userId?: string;
     beforeData?: any;
     afterData?: any;
   }>;

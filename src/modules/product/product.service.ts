@@ -16,7 +16,7 @@ export class ProductService {
     return this.productRepository.save(product);
   }
 
-  async findAll(page = 1, limit = 10, categoryId?: number, search?: string) {
+  async findAll(page = 1, limit = 10, categoryId?: string, search?: string) {
     const query = this.productRepository
       .createQueryBuilder('product')
       .leftJoinAndSelect('product.category', 'category')
@@ -51,7 +51,7 @@ export class ProductService {
     };
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     const product = await this.productRepository.findOne({
       where: { id },
       relations: ['category'],
@@ -64,13 +64,13 @@ export class ProductService {
     return product;
   }
 
-  async update(id: number, dto: UpdateProductDto) {
+  async update(id: string, dto: UpdateProductDto) {
     const product = await this.findOne(id);
     Object.assign(product, dto);
     return this.productRepository.save(product);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const product = await this.findOne(id);
     await this.productRepository.remove(product);
     return { message: `Product #${id} deleted successfully` };

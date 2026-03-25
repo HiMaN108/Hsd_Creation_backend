@@ -11,14 +11,14 @@ import { Product } from '../../product/entities/product.entity';
 
 @Entity('cart_items')
 export class CartItem {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column()
-  cart_id: number;
+  @Column({ type: 'uuid' })
+  cart_id: string;
 
-  @Column()
-  product_id: number;
+  @Column({ type: 'uuid' })
+  product_id: string;
 
   @Column({ type: 'int', default: 1 })
   quantity: number;

@@ -6,7 +6,7 @@ import {
   Delete,
   Body,
   Param,
-  ParseIntPipe,
+  ParseUUIDPipe,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -34,7 +34,7 @@ export class CategoryController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Get a category by ID with its products (public)' })
-  findOne(@Param('id', ParseIntPipe) id: number) {
+  findOne(@Param('id', ParseUUIDPipe) id: string) {
     return this.categoryService.findOne(id);
   }
 
@@ -53,7 +53,7 @@ export class CategoryController {
   @ApiBearerAuth('bearerAuth')
   @ApiOperation({ summary: 'Update a category (admin only)' })
   update(
-    @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseUUIDPipe) id: string,
     @Body() dto: UpdateCategoryDto,
   ) {
     return this.categoryService.update(id, dto);
@@ -64,7 +64,7 @@ export class CategoryController {
   @Roles(Role.ADMIN)
   @ApiBearerAuth('bearerAuth')
   @ApiOperation({ summary: 'Delete a category (admin only)' })
-  remove(@Param('id', ParseIntPipe) id: number) {
+  remove(@Param('id', ParseUUIDPipe) id: string) {
     return this.categoryService.remove(id);
   }
 }
